@@ -1,4 +1,4 @@
-package com.cool.cool.entities;
+package com.cool.cool.entities.core;
 
 import org.hibernate.validator.constraints.Email;
 

@@ -1,4 +1,4 @@
-package com.cool.cool.entities;
+package com.cool.cool.entities.core;
 
 import javax.persistence.*;
 
@@ -20,8 +20,7 @@ public class Role {
 
     @Column(name = "name", nullable = true)
     private String name;
-
-
+    
     public int getId() {
         return id;
     }
@@ -39,11 +38,11 @@ public class Role {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
 
-        Role authority = (Role) o;
+        Role authority = (Role) obj;
 
         if (!name.equals(authority.name)) return false;
 
