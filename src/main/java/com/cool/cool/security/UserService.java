@@ -49,7 +49,7 @@ public class UserService  implements UserDetailsService {
 
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (Role authority : user.getAuthorities()) {
-            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getName());
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getRoleName());
             grantedAuthorities.add(grantedAuthority);
         }
 

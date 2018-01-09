@@ -8,33 +8,39 @@ import javax.persistence.*;
  * Email    : d.dim@gl-f.com
  */
 
-
 @Entity
 @Table(name = "table_role")
-public class Role {
+public class Role extends AbstractEntity{
+
+    private String roleName;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
-
-    @Column(name = "name", nullable = true)
-    private String name;
-    
-    public int getId() {
+    @Column(name = "role_id")
+    @Override
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    @Column(name = "rol_code")
+    public String getCode() {
+        return code;
     }
 
-    public String getName() {
-        return name;
+    @Override
+    @Column(name = "rol_des")
+    public String getDesc() {
+        return desc;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    @Column(name = "role_name", nullable = true)
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     @Override
@@ -44,20 +50,20 @@ public class Role {
 
         Role authority = (Role) obj;
 
-        if (!name.equals(authority.name)) return false;
+        if (!roleName.equals(authority.roleName)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return name.hashCode();
+        return roleName.hashCode();
     }
 
     @Override
     public String toString() {
         return "Role{" +
-                "name='" + name + '\'' +
+                "roleName='" + roleName + '\'' +
                 '}';
     }
 

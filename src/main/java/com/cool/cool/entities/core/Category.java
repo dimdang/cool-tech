@@ -1,7 +1,5 @@
 package com.cool.cool.entities.core;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 
 /**
@@ -14,7 +12,7 @@ import javax.persistence.*;
 @Table(name = "tbl_category")
 public class Category extends AbstractEntity{
 
-    String categoryName;
+    private String categoryName;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,4 +42,5 @@ public class Category extends AbstractEntity{
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
+
 }

@@ -8,14 +8,14 @@ CREATE TABLE IF NOT EXISTS user (
 );
 
 CREATE TABLE IF NOT EXISTS authority (
-  name VARCHAR(50) NOT NULL PRIMARY KEY
+  roleName VARCHAR(50) NOT NULL PRIMARY KEY
 );
 
 CREATE TABLE IF NOT EXISTS user_authority (
     username VARCHAR(50) NOT NULL,
     authority VARCHAR(50) NOT NULL,
     FOREIGN KEY (username) REFERENCES user (username),
-    FOREIGN KEY (authority) REFERENCES authority (name),
+    FOREIGN KEY (authority) REFERENCES authority (roleName),
     UNIQUE INDEX user_authority_idx_1 (username, authority)
 );
 

@@ -8,6 +8,7 @@ import com.cool.cool.entities.core.User;
  * Email    : d.dim@gl-f.com
  */
 
+
 public interface UserRepository {
 
     User findByEmail(String email);
