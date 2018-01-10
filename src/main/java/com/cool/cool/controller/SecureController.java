@@ -1,6 +1,8 @@
 package com.cool.cool.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -13,8 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/secure")
 public class SecureController {
 
-    public String secured() {
-        return "you're secure now ! ";
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseBody
+    public String sayHello() {
+        return "Secure Hello!";
     }
 
 }

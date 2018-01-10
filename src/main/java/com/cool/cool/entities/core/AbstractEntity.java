@@ -13,7 +13,7 @@ import java.util.Date;
  */
 
 @MappedSuperclass
-public abstract class AbstractEntity implements Serializable,Cloneable {
+public abstract class AbstractEntity implements Serializable, Cloneable {
 
     protected Long id;
     protected String code;
