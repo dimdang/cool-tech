@@ -10,60 +10,54 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "table_role")
-public class Role extends AbstractEntity{
-
-    private String roleName;
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    @Override
-    public Long getId() {
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "name", nullable = true)
+    private String name;
+
+
+    public int getId() {
         return id;
     }
 
-    @Override
-    @Column(name = "rol_code")
-    public String getCode() {
-        return code;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
-    @Column(name = "rol_des")
-    public String getDesc() {
-        return desc;
-    }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    @Column(name = "role_name", nullable = true)
-    public String getRoleName() {
-        return roleName;
-    }
+        Role authority = (Role) o;
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
-
-        Role authority = (Role) obj;
-
-        if (!roleName.equals(authority.roleName)) return false;
+        if (!name.equals(authority.name)) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return roleName.hashCode();
+        return name.hashCode();
     }
 
     @Override
     public String toString() {
         return "Role{" +
-                "roleName='" + roleName + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
 

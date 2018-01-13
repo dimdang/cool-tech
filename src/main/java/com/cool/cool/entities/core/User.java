@@ -14,35 +14,42 @@ import java.util.Set;
 
 @Entity
 @Table(name = "table_user")
-public class User extends AbstractEntity{
-
-    private String username;
-    private String password;
-    private String email;
-    private boolean activated;
-    private Set<Role> authorities;
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    @Override
-    public Long getId() {
+    @Column(name = "id")
+    private int id;
+
+    @Column(name = "username", nullable = false, length = 50)
+    private String username;
+
+    @Size(min = 0, max = 500)
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Email
+    @Column(name = "email", nullable = true, unique = true)
+    private String email;
+
+    @Column(name = "activated", nullable = true)
+    private boolean activated;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "table_user_role", joinColumns = {
+            @JoinColumn(name = "user_id", nullable = false, updatable = true)},
+            inverseJoinColumns = {@JoinColumn(name = "role_id",
+                    nullable = false, updatable = true)})
+    private Set<Role> authorities;
+
+    public int getId() {
         return id;
     }
 
-    @Override
-    @Column(name = "user_code")
-    public String getCode() {
-        return code;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    @Override
-    @Column(name = "user_desc")
-    public String getDesc() {
-        return desc;
-    }
-
-    @Column(name = "username", nullable = false, length = 50)
     public String getUsername() {
         return username;
     }
@@ -51,8 +58,6 @@ public class User extends AbstractEntity{
         this.username = username;
     }
 
-    @Size(min = 0, max = 500)
-    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -61,8 +66,6 @@ public class User extends AbstractEntity{
         this.password = password;
     }
 
-    @Email
-    @Column(name = "email", nullable = true, unique = true)
     public String getEmail() {
         return email;
     }
@@ -71,7 +74,6 @@ public class User extends AbstractEntity{
         this.email = email;
     }
 
-    @Column(name = "activated", nullable = true)
     public boolean isActivated() {
         return activated;
     }
@@ -80,10 +82,6 @@ public class User extends AbstractEntity{
         this.activated = activated;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "table_user_role", joinColumns = {
-            @JoinColumn(name = "user_id", nullable = false, updatable = true)},
-            inverseJoinColumns = {@JoinColumn(name = "role_id", nullable = false, updatable = true)})
     public Set<Role> getAuthorities() {
         return authorities;
     }

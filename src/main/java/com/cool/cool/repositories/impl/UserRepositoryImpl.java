@@ -23,7 +23,6 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Autowired
     private SessionFactory sessionFactory;
-
     Session session = null;
     Transaction transaction = null;
 
@@ -40,7 +39,6 @@ public class UserRepositoryImpl implements UserRepository {
                 Criteria criteria = session.createCriteria(User.class);
                 criteria.add(Restrictions.eq("username", username));
                 user = (User) criteria.list().get(0);
-
             }
         }catch (Exception e){
             e.printStackTrace();
