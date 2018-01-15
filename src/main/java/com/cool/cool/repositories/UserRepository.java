@@ -13,6 +13,6 @@ public interface UserRepository {
 
     User findByEmail(String email);
 
-    boolean createUser(User user);
+    void createUser(User user);
 
 }

@@ -53,7 +53,7 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public boolean createUser(User user) {
+    public void createUser(User user) {
         try {
             session = sessionFactory.openSession();
             transaction = session.beginTransaction();
@@ -65,13 +65,11 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setPassword(passwordEncoder.encode(user.getPassword()));
                 session.persist(user);
                 transaction.commit();
-                return true;
             }
 
         } catch (HibernateException e) {
             e.printStackTrace();
             transaction.rollback();
-            return false;
         } finally {
 
             if (session != null) {

@@ -26,8 +26,11 @@ public interface EntityDao {
 
     Connection getConnection() throws SQLException;
 
+    <T> List<T> getEntityByCode(String code, Class<T> clazz);
+
     <T> List<T> list(BaseCriteria<T> criteria);
 
     <T> List<T> list(Class<T> clazz, boolean isDistinctRootEntity, List<Association> associations, List<Criterion> criterions, List<Projection> projections, Integer firstResult, Integer maxResults, List<Order> orders);
 
+    <T> Class<T> findByEmail(String string);
 }

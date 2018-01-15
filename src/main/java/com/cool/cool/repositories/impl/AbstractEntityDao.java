@@ -121,4 +121,22 @@ public abstract class AbstractEntityDao implements EntityDao {
 
         return criteria.list();
     }
+
+    @Override
+    public <T> List<T> getEntityByCode(String code, Class<T> clazz) {
+        if (code != null && !code.isEmpty() && clazz != null){
+            Criteria criteria = getCurrentSession().createCriteria(clazz);
+            criteria.add(Restrictions.eq("code", code));
+            return criteria.list();
+        }
+        return null;
+    }
+
+    @Override
+    public <T> Class<T> findByEmail(String string) {
+        if (string != null && !string.isEmpty()){
+
+        }
+        return null;
+    }
 }
