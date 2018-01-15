@@ -66,7 +66,6 @@ public class Oauth2Configuration {
                     .authorizeRequests()
                     .antMatchers("/product/").permitAll()
                     .antMatchers("/secure/**").authenticated();
-
         }
 
     }
