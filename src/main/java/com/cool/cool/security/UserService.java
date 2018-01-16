@@ -2,6 +2,7 @@ package com.cool.cool.security;
 
 import com.cool.cool.entities.core.Role;
 import com.cool.cool.entities.core.User;
+import com.cool.cool.repositories.SecUserRepository;
 import com.cool.cool.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class UserService  implements UserDetailsService {
     private final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
 
     @Autowired
-    private UserRepository userRepository;
+    private SecUserRepository secUserRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,7 +39,7 @@ public class UserService  implements UserDetailsService {
         User user = null;
 
         if (username != null){
-            user = userRepository.findByEmail(username);
+            user = secUserRepository.loadUserByUsername(username);
         }
 
         if (user == null){

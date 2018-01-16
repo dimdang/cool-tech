@@ -1,5 +1,6 @@
 package com.cool.cool.service;
 
+import com.cool.cool.entities.core.AbstractEntity;
 import com.cool.cool.hsql.Association;
 import com.cool.cool.hsql.BaseCriteria;
 import com.cool.cool.repositories.EntityDao;
@@ -33,4 +34,13 @@ public interface EntityService {
 
     <T> List<T> list(Class<T> clazz, boolean isDistinctRootEntity, List<Association> associations, List<Criterion> criterions, List<Projection> projections, Integer firstResult, Integer maxResults, List<Order> orders);
 
+    <T> void saveOrUpdate(T entity);
+
+    <T extends AbstractEntity> void save(List<T> list);
+
+    <T extends AbstractEntity> void update(List<T> list);
+
+    <T> List<T> list(Class<T> clazz);
+
+    <T> T findByField(String field, Object value, Class<T> clazz);
 }

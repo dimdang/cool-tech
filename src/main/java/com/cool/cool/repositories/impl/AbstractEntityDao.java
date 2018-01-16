@@ -1,5 +1,6 @@
 package com.cool.cool.repositories.impl;
 
+import com.cool.cool.entities.core.AbstractEntity;
 import com.cool.cool.hsql.Association;
 import com.cool.cool.hsql.BaseCriteria;
 import com.cool.cool.repositories.EntityDao;
@@ -124,7 +125,7 @@ public abstract class AbstractEntityDao implements EntityDao {
 
     @Override
     public <T> List<T> getEntityByCode(String code, Class<T> clazz) {
-        if (code != null && !code.isEmpty() && clazz != null){
+        if (code != null && !code.isEmpty() && clazz != null) {
             Criteria criteria = getCurrentSession().createCriteria(clazz);
             criteria.add(Restrictions.eq("code", code));
             return criteria.list();
@@ -133,10 +134,44 @@ public abstract class AbstractEntityDao implements EntityDao {
     }
 
     @Override
-    public <T> Class<T> findByEmail(String string) {
-        if (string != null && !string.isEmpty()){
+    public <T> void saveOrUpdate(T entity) {
+        if (entity != null)
+            getCurrentSession().saveOrUpdate(entity);
+    }
 
+    @Override
+    public <T extends AbstractEntity> void save(List<T> list) {
+        if (list != null)
+            for (T entity : list)
+                save((List<T>) entity);
+    }
+
+    @Override
+    public <T extends AbstractEntity> void update(List<T> list) {
+        if (list != null)
+            for (T entity : list)
+                update((List<T>) entity);
+    }
+
+    @Override
+    public <T> List<T> list(Class<T> clazz) {
+        if (clazz != null) {
+            Criteria criteria = getCurrentSession().createCriteria(clazz);
+            criteria.addOrder(Order.desc("updateDate"));
+            return criteria.list();
         }
         return null;
+    }
+
+    public <T> T findByField(String field, Object value, Class<T> clazz) {
+        Criteria criteria = getCurrentSession().createCriteria(clazz);
+        criteria.add(Restrictions.eq(field, value));
+        return (T) criteria.uniqueResult();
+    }
+
+    public <T> List<T> listByField(String field, Object value, Class<T> clazz) {
+        Criteria criteria = getCurrentSession().createCriteria(clazz);
+        criteria.add(Restrictions.eq(field, value));
+        return  criteria.list();
     }
 }

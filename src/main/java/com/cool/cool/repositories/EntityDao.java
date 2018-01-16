@@ -1,5 +1,6 @@
 package com.cool.cool.repositories;
 
+import com.cool.cool.entities.core.AbstractEntity;
 import com.cool.cool.hsql.Association;
 import com.cool.cool.hsql.BaseCriteria;
 import org.hibernate.Session;
@@ -32,5 +33,15 @@ public interface EntityDao {
 
     <T> List<T> list(Class<T> clazz, boolean isDistinctRootEntity, List<Association> associations, List<Criterion> criterions, List<Projection> projections, Integer firstResult, Integer maxResults, List<Order> orders);
 
-    <T> Class<T> findByEmail(String string);
+    <T> void saveOrUpdate(T entity);
+
+    <T extends AbstractEntity> void save(List<T> list);
+
+    <T extends AbstractEntity> void update(List<T> list);
+
+    <T> List<T> list(Class<T> clazz);
+
+    <T> T findByField(String field, Object value, Class<T> clazz);
+
+    <T> List<T> listByField(String field, Object value, Class<T> clazz);
 }

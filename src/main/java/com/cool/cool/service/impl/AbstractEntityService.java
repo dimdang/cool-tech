@@ -1,5 +1,6 @@
 package com.cool.cool.service.impl;
 
+import com.cool.cool.entities.core.AbstractEntity;
 import com.cool.cool.hsql.Association;
 import com.cool.cool.hsql.BaseCriteria;
 import com.cool.cool.repositories.EntityDao;
@@ -22,30 +23,55 @@ import java.util.List;
 
 public abstract class AbstractEntityService implements EntityService {
 
-    public abstract EntityDao geDao();
+    public abstract EntityDao getDao();
 
     @Override
     public SessionFactory getSessionFactory() {
-        return geDao().getSessionFactory();
+        return getDao().getSessionFactory();
     }
 
     @Override
     public Session getCurrentSession() {
-        return geDao().getCurrentSession();
+        return getDao().getCurrentSession();
     }
 
     @Override
     public Connection getConnection() throws SQLException {
-        return geDao().getConnection();
+        return getDao().getConnection();
     }
 
     @Override
     public <T> List<T> list(BaseCriteria<T> criteria) {
-        return geDao().list(criteria);
+        return getDao().list(criteria);
     }
 
     @Override
     public <T> List<T> list(Class<T> clazz, boolean isDistinctRootEntity, List<Association> associations, List<Criterion> criterions, List<Projection> projections, Integer firstResult, Integer maxResults, List<Order> orders) {
-        return geDao().list(clazz, isDistinctRootEntity, associations, criterions, projections, firstResult, maxResults, orders);
+        return getDao().list(clazz, isDistinctRootEntity, associations, criterions, projections, firstResult, maxResults, orders);
+    }
+
+    @Override
+    public <T> void saveOrUpdate(T entity) {
+        getDao().saveOrUpdate(entity);
+    }
+
+    @Override
+    public <T extends AbstractEntity> void save(List<T> list) {
+        getDao().save(list);
+    }
+
+    @Override
+    public <T extends AbstractEntity> void update(List<T> list) {
+        getDao().update(list);
+    }
+
+    @Override
+    public <T> List<T> list(Class<T> clazz) {
+        return getDao().list(clazz);
+    }
+
+    @Override
+    public <T> T findByField(String field, Object value, Class<T> clazz) {
+        return getDao().findByField(field, value, clazz);
     }
 }
